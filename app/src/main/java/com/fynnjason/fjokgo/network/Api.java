@@ -1,7 +1,6 @@
 package com.fynnjason.fjokgo.network;
 
 
-
 public class Api {
 
     // 请求成功
@@ -17,5 +16,7 @@ public class Api {
     public static final String STAFF_LOGIN = BASE_URL + "/staff/login";
     // 用户详情
     public static final String STAFF_DETAIL = BASE_URL + "/staff/detail";
+    // 公司列表
+    public static final String DEPARTMENT_GET_COMPANIES = BASE_URL + "/department/getCompanies";
 
 }

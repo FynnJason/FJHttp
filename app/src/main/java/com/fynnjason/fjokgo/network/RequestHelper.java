@@ -1,13 +1,16 @@
 package com.fynnjason.fjokgo.network;
 
 
+import com.blankj.utilcode.util.SPUtils;
 import com.fynnjason.fjokgo.bean.BaseBean;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.HttpHeaders;
-import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.GetRequest;
+import com.lzy.okgo.request.PostRequest;
+
 
 /**
  * 作者：FynnJason
@@ -19,35 +22,26 @@ import com.lzy.okgo.model.Response;
 class RequestHelper<T extends BaseBean> {
 
     T t;
-    HttpParams params;
-    HttpHeaders headers;
-
-    // post请求
-    void post(String url, String json, final RequestCallback<T> callback) {
-        this.callback = callback;
-        OkGo.<String>post(url)
-                .tag(url)
-                .params(params)
-                .headers(headers)
-                .upJson(json)
-                .execute(stringCallback);
-    }
+    RequestCallback<T> callback;
+    GetRequest<String> getRequest;
+    PostRequest<String> postRequest;
 
     // get请求
-    void get(String url, final RequestCallback<T> callback) {
-        this.callback = callback;
-        OkGo.<String>get(url)
-                .tag(url)
-                .params(params)
-                .headers(headers)
-                .execute(stringCallback);
+    GetRequest<String> get(String url) {
+        getRequest = OkGo.<String>get(url).tag(url);
+        return getRequest;
     }
 
-    // 请求回调
-    private RequestCallback<T> callback;
+    // post请求
+    PostRequest<String> post(String url) {
+        postRequest = OkGo.<String>post(url).tag(url);
+        return postRequest;
+    }
 
-    // 解析回调
-    private StringCallback stringCallback = new StringCallback() {
+    /*--------------------------华丽的分割线（以上部分基本不用修改）--------------------------*/
+
+    // 解析回调，可以根据项目实际情况在统一处理某些逻辑
+    StringCallback stringCallback = new StringCallback() {
         @Override
         public void onSuccess(Response<String> response) {
             try {
@@ -71,4 +65,5 @@ class RequestHelper<T extends BaseBean> {
             callback.onError(response.code(), "网络连接失败");
         }
     };
+
 }

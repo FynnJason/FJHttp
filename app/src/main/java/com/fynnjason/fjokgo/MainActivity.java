@@ -1,12 +1,11 @@
 package com.fynnjason.fjokgo;
 
 import android.os.Bundle;
-import android.widget.Toast;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
-import com.blankj.utilcode.util.ToastUtils;
-import com.fynnjason.fjokgo.bean.StaffLoginBean;
 import com.fynnjason.fjokgo.bean.StaffDetailBean;
+import com.fynnjason.fjokgo.bean.StaffLoginBean;
 import com.fynnjason.fjokgo.json.LoginJson;
 import com.fynnjason.fjokgo.network.RequestCallback;
 import com.fynnjason.fjokgo.network.RequestUtils;
@@ -32,14 +31,14 @@ public class MainActivity extends AppCompatActivity {
         login();
     }
 
-    /**
-     * 登录
-     */
+    // 登录
     private void login() {
         new RequestUtils<>(new StaffLoginBean())
-                .staffLogin(mJson, new RequestCallback<StaffLoginBean>() {
+                .staffLogin(mJson)
+                .execute(new RequestCallback<StaffLoginBean>() {
                     @Override
                     public void onSuccess(StaffLoginBean staffLoginBean) {
+                        LogUtils.e(staffLoginBean.getData().getAccessToken());
                         // 保存用户token
                         SPUtils.getInstance().put("accessToken", staffLoginBean.getData().getAccessToken());
                         // 获取用户详情
@@ -48,21 +47,19 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(int errorCode, String errorMsg) {
-                        Toast.makeText(MainActivity.this, errorMsg, Toast.LENGTH_SHORT).show();
+
                     }
                 });
     }
 
-    /**
-     * 用户详情
-     */
+    // 用户详情
     private void detail() {
         new RequestUtils<>(new StaffDetailBean())
-                .useDefaultHeaders()
-                .staffDetail(new RequestCallback<StaffDetailBean>() {
+                .staffDetail()
+                .execute(new RequestCallback<StaffDetailBean>() {
                     @Override
                     public void onSuccess(StaffDetailBean staffDetailBean) {
-                        ToastUtils.showShort(staffDetailBean.getData().getRealName());
+                        LogUtils.e(staffDetailBean.getData().getRealName());
                     }
 
                     @Override
@@ -70,6 +67,6 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
-
     }
+
 }

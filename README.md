@@ -1,6 +1,22 @@
-# 说明
-OkGO的用法这里不阐述了，相信用过的朋友都非常清楚了。
-这里我对OkGo的用法进行二次封装，这也得力于OkGo比较灵活的处理方法。
-先来看一下最终结果的调用方式，以登录、获取用户详情两个接口举例：
-1、登录
-登录应该是App开发中最常见的功能了，大多数情况我们是通过传入账号和密码进行请求的
+# 达到的效果
+- 请求成功，返回数据对象和Json字符串
+- 请求失败，返回code和msg
+- 链式调用
+
+# 封装思路
+在http目录下，包含一下类：
+```
+FJApi
+FJBaseBean
+FJHttp
+FJHttpCallback
+FJHttpHelper
+FJHttpUtils
+```
+以上6个类，又可分为开发者需要关注的和无需关心两大类
+
+###### 需要关注的类
+[FJApi](https://github.com/FynnJason/FJHttp/blob/kotlin/app/src/main/java/com/fynnjason/fjokgo/http/FJApi.kt) 管理网络请求的code，服务器地址，接口地址
+
+
+

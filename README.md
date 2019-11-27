@@ -18,10 +18,15 @@ FJHttpUtils
 ```
 
 [FJApi](https://github.com/FynnJason/FJHttp/blob/kotlin/app/src/main/java/com/fynnjason/fjokgo/http/FJApi.kt) 管理网络请求的code，服务器地址，接口地址
+
 [FJBaseBean](https://github.com/FynnJason/FJHttp/blob/kotlin/app/src/main/java/com/fynnjason/fjokgo/http/FJBaseBean.kt) 数据类的基类，所有数据类都需要继承该基类。PS：code和msg的变量名称可以根据实际项目修改，修改此处后会影响[FJHttpHelper](https://github.com/FynnJason/FJHttp/blob/kotlin/app/src/main/java/com/fynnjason/fjokgo/http/FJHttpHelper.kt)中对应的code和msg变量名称，所以也需要一起修改
+
 [FJHttp](https://github.com/FynnJason/FJHttp/blob/kotlin/app/src/main/java/com/fynnjason/fjokgo/http/FJHttp.kt)构建我们项目所有的请求方法，例如登录、注册等等
+
 [FJHttpCallback](https://github.com/FynnJason/FJHttp/blob/kotlin/app/src/main/java/com/fynnjason/fjokgo/http/FJHttpCallback.kt)接口，回调网络请求的成功和失败
+
 [FJHttpHelper](https://github.com/FynnJason/FJHttp/blob/kotlin/app/src/main/java/com/fynnjason/fjokgo/http/FJHttpHelper.kt)封装代码最核心的地方，统一在StringCallback中处理，最终再回调到[FJHttpCallback](https://github.com/FynnJason/FJHttp/blob/kotlin/app/src/main/java/com/fynnjason/fjokgo/http/FJHttpCallback.kt)，在这个类中，开发者需要根据项目的实际情况再简单修改，例如有些项目code=401时是用户token失效，那可以在StringCallback中删除本地存储的token，或者跳转到登录界面等等
+
 [FJHttpUtils](https://github.com/FynnJason/FJHttp/blob/kotlin/app/src/main/java/com/fynnjason/fjokgo/http/FJHttpUtils.kt)在Applicaition中必须初始化的工具类
 
 # 列举登录示例，详细代码直接参考demo
